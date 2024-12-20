@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github/BasZ4ll/go-send-email/test"
 	"log"
 	"net/smtp"
 	"os"
@@ -14,6 +15,8 @@ import (
 )
 
 func main() {
+	// เรียกใช้ func ที่ต้องการ test
+	test.Main2()
 	SendMail()
 }
 
@@ -21,6 +24,7 @@ func SendMail() {
 
 	godotenv.Load()
 
+	// ดึงข้อมูลจากไฟล์ Excel
 	files, err := filepath.Glob("*.xlsx")
 	if err != nil {
 		log.Fatal(err)
@@ -33,9 +37,9 @@ func SendMail() {
 		}
 
 		// ข้อมูลเข้าสู่ระบบ SMTP ของ Google
-		smtpHost := os.Getenv("smtp_Host") //"smtp.gmail.com
-		smtpPort := os.Getenv("smtp_Port") //587
-		senderEmail := os.Getenv("sender_Email") // แทนที่ด้วยอีเมลของคุณ
+		smtpHost := os.Getenv("smtp_Host")             //"smtp.gmail.com
+		smtpPort := os.Getenv("smtp_Port")             //587
+		senderEmail := os.Getenv("sender_Email")       // แทนที่ด้วยอีเมลของคุณ
 		senderPassword := os.Getenv("sender_Password") // แทนที่ด้วยรหัสผ่านของคุณ
 
 		// ดึงข้อมูลจากแต่ละแถวและคอลัมน์
@@ -51,7 +55,7 @@ func SendMail() {
 				fmt.Println("recipients:", recipients)
 				// ส่งอีเมลผ่าน SMTP
 				subject := os.Getenv("subject_Email") // แทนที่ด้วยหัวข้อของอีเมลของคุณ
-				body := os.Getenv("body_Email") // แทนที่ด้วยเนื้อหาของอีเมลของคุณ
+				body := os.Getenv("body_Email")       // แทนที่ด้วยเนื้อหาของอีเมลของคุณ
 
 				// กำหนดการเชื่อมต่อ SMTP
 				auth := smtp.PlainAuth("", senderEmail, senderPassword, smtpHost)
